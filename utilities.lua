@@ -890,7 +890,13 @@ function pa28.flightstep(self)
     end
 
     if self._engine_running == true then
-        self.lights:set_properties({textures={"pa28_l_light.png^pa28_l_light.png","pa28_l_light.png","pa28_r_light.png"},glow=15})
+        -- Blink lights
+        minetest.after(1.5, function()
+            self.lights:set_properties({textures={"pa28_l_light.png^pa28_l_light.png","pa28_l_light.png","pa28_r_light.png"},glow=15})
+            minetest.after(0.5, function()
+                self.lights:set_properties({textures={"pa28_l_light.png^pa28_l_light.png","pa28_l_light.png","pa28_r_light.png"},glow=0})
+            end)
+        end)
     else
         self.lights:set_properties({textures={"pa28_l_light.png","pa28_l_light.png","pa28_r_light.png"},glow=0})
     end
